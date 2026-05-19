@@ -16,7 +16,10 @@
         "Unity.Mathematics",
         "Unity.Mathematics.Extensions",
         "Unity.Physics",
-        "Unity.Transforms"
+        "Unity.Transforms",
+        "BovineLabs.Reaction.Authoring",
+        "BovineLabs.Reaction.Data",
+        "BovineLabs.Essence.Data"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
