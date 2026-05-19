@@ -1,4 +1,4 @@
-// BovineLabs.Reaction.Addon/ActionDestroyOnActivateSystem.cs
+// BovineLabs.Reaction.Addon/ActionDestroyOnDeactivateSystem.cs
 namespace BovineLabs.Reaction.Actions
 {
     using BovineLabs.Core.LifeCycle;
@@ -11,10 +11,10 @@ namespace BovineLabs.Reaction.Actions
     using Unity.Entities;
 
     /// <summary>
-    /// Processes destroy actions when an action activates.
+    /// Processes destroy actions when an action deactivates.
     /// </summary>
-    [UpdateInGroup(typeof(ActiveEnabledSystemGroup))]
-    public partial struct ActionDestroyOnActivateSystem : ISystem
+    [UpdateInGroup(typeof(ActiveDisabledSystemGroup))]
+    public partial struct ActionDestroyOnDeactivateSystem : ISystem
     {
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
@@ -26,13 +26,13 @@ namespace BovineLabs.Reaction.Actions
         }
 
         [BurstCompile]
-        [WithAll(typeof(Active))]
-        [WithDisabled(typeof(ActivePrevious))]
+        [WithAll(typeof(ActivePrevious))]
+        [WithDisabled(typeof(Active))]
         private partial struct DestroyJob : IJobEntity
         {
             [NativeDisableParallelForRestriction] public ComponentLookup<DestroyEntity> DestroyLookup;
 
-            private void Execute(Entity entity, in DynamicBuffer<ActionDestroyOnActivate> actions, in Targets targets)
+            private void Execute(Entity entity, in DynamicBuffer<ActionDestroyOnDeactivate> actions, in Targets targets)
             {
                 for (var i = 0; i < actions.Length; i++)
                 {

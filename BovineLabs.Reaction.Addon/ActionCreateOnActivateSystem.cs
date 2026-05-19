@@ -1,4 +1,4 @@
-// BovineLabs.Reaction.Addon/ActionCreateOnDeactivateSystem.cs
+// BovineLabs.Reaction.Addon/ActionCreateOnActivateSystem.cs
 namespace BovineLabs.Reaction.Actions
 {
     using BovineLabs.Core;
@@ -11,15 +11,15 @@ namespace BovineLabs.Reaction.Actions
     using Unity.Collections;
     using Unity.Entities;
 
-    [UpdateInGroup(typeof(ActiveDisabledSystemGroup))]
-    public partial struct ActionCreateOnDeactivateSystem : ISystem
+    [UpdateInGroup(typeof(ActiveEnabledSystemGroup))]
+    public partial struct ActionCreateOnActivateSystem : ISystem
     {
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var commandBufferSystem = SystemAPI.GetSingleton<InstantiateCommandBufferSystem.Singleton>();
 
-            new DeactivateJob
+            new ActivateJob
             {
                 CommandBuffer = commandBufferSystem.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter(),
                 ObjectDefinitions = SystemAPI.GetSingleton<ObjectDefinitionRegistry>()
@@ -27,14 +27,14 @@ namespace BovineLabs.Reaction.Actions
         }
 
         [BurstCompile]
-        [WithAll(typeof(ActivePrevious))]
-        [WithDisabled(typeof(Active))]
-        private partial struct DeactivateJob : IJobEntity
+        [WithAll(typeof(Active))]
+        [WithDisabled(typeof(ActivePrevious))]
+        private partial struct ActivateJob : IJobEntity
         {
             public EntityCommandBuffer.ParallelWriter CommandBuffer;
             [ReadOnly] public ObjectDefinitionRegistry ObjectDefinitions;
 
-            private void Execute([ChunkIndexInQuery] int chunkIndex, Entity entity, in DynamicBuffer<ActionCreateOnDeactivate> actions, in Targets targets)
+            private void Execute([ChunkIndexInQuery] int chunkIndex, Entity entity, in DynamicBuffer<ActionCreateOnActivate> actions, in Targets targets)
             {
                 for (var i = 0; i < actions.Length; i++)
                 {

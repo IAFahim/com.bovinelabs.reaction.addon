@@ -1,4 +1,4 @@
-// BovineLabs.Reaction.Authoring/Actions/ActionCreateOnDeactivateAuthoring.cs
+// BovineLabs.Reaction.Authoring/Actions/ActionCreateOnActivateAuthoring.cs
 namespace BovineLabs.Reaction.Authoring.Actions
 {
     using System;
@@ -10,14 +10,14 @@ namespace BovineLabs.Reaction.Authoring.Actions
     using UnityEngine;
 
     /// <summary>
-    /// Spawns an object when the action deactivates.
+    /// Spawns an object when the action activates.
     /// </summary>
     [ReactionAuthoring]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(ReactionAuthoring))]
-    public class ActionCreateOnDeactivateAuthoring : MonoBehaviour
+    public class ActionCreateOnActivateAuthoring : MonoBehaviour
     {
-        [Tooltip("Objects to spawn when this action deactivates.")]
+        [Tooltip("Objects to spawn when this action activates.")]
         public Spawn[] Spawns = Array.Empty<Spawn>();
 
         [Serializable]
@@ -27,23 +27,23 @@ namespace BovineLabs.Reaction.Authoring.Actions
             public Target Target = Target.Target;
         }
 
-        private class Baker : Baker<ActionCreateOnDeactivateAuthoring>
+        private class Baker : Baker<ActionCreateOnActivateAuthoring>
         {
-            public override void Bake(ActionCreateOnDeactivateAuthoring authoring)
+            public override void Bake(ActionCreateOnActivateAuthoring authoring)
             {
                 var entity = this.GetEntity(TransformUsageFlags.None);
-                var buffer = this.AddBuffer<ActionCreateOnDeactivate>(entity);
+                var buffer = this.AddBuffer<ActionCreateOnActivate>(entity);
 
                 foreach (var spawn in authoring.Spawns)
                 {
                     if (spawn.Definition == null)
                     {
                         throw new InvalidOperationException(
-                            $"[{nameof(ActionCreateOnDeactivateAuthoring)}] {authoring.name}: ObjectDefinition is null.");
+                            $"[{nameof(ActionCreateOnActivateAuthoring)}] {authoring.name}: ObjectDefinition is null.");
                     }
 
                     this.DependsOn(spawn.Definition);
-                    buffer.Add(new ActionCreateOnDeactivate { Id = spawn.Definition, Target = spawn.Target });
+                    buffer.Add(new ActionCreateOnActivate { Id = spawn.Definition, Target = spawn.Target });
                 }
             }
         }
