@@ -18,8 +18,7 @@ namespace BovineLabs.Reaction.Actions
         {
             new ActivateJob
             {
-                DestroyLookup = SystemAPI.GetComponentLookup<DestroyEntity>(),
-                TargetsCustoms = SystemAPI.GetComponentLookup<TargetsCustom>(true),
+                DestroyLookup = SystemAPI.GetComponentLookup<DestroyEntity>()
             }.ScheduleParallel();
         }
 
@@ -29,7 +28,6 @@ namespace BovineLabs.Reaction.Actions
         private partial struct ActivateJob : IJobEntity
         {
             [NativeDisableParallelForRestriction] public ComponentLookup<DestroyEntity> DestroyLookup;
-            [ReadOnly] public ComponentLookup<TargetsCustom> TargetsCustoms;
 
             private void Execute(Entity entity, in DynamicBuffer<ActionDestroy> actions, in Targets targets)
             {
@@ -37,7 +35,7 @@ namespace BovineLabs.Reaction.Actions
                 {
                     var action = actions[i];
                     if (action.Phase != ExecutionPhase.OnActivate) continue;
-                    DestroyResolver.EnableDestroy(action.Target, entity, targets, TargetsCustoms, ref DestroyLookup);
+                    DestroyResolver.EnableDestroy(action.Target, entity, targets, ref DestroyLookup);
                 }
             }
         }
@@ -51,8 +49,7 @@ namespace BovineLabs.Reaction.Actions
         {
             new DeactivateJob
             {
-                DestroyLookup = SystemAPI.GetComponentLookup<DestroyEntity>(),
-                TargetsCustoms = SystemAPI.GetComponentLookup<TargetsCustom>(true),
+                DestroyLookup = SystemAPI.GetComponentLookup<DestroyEntity>()
             }.ScheduleParallel();
         }
 
@@ -62,7 +59,6 @@ namespace BovineLabs.Reaction.Actions
         private partial struct DeactivateJob : IJobEntity
         {
             [NativeDisableParallelForRestriction] public ComponentLookup<DestroyEntity> DestroyLookup;
-            [ReadOnly] public ComponentLookup<TargetsCustom> TargetsCustoms;
 
             private void Execute(Entity entity, in DynamicBuffer<ActionDestroy> actions, in Targets targets)
             {
@@ -70,7 +66,7 @@ namespace BovineLabs.Reaction.Actions
                 {
                     var action = actions[i];
                     if (action.Phase != ExecutionPhase.OnDeactivate) continue;
-                    DestroyResolver.EnableDestroy(action.Target, entity, targets, TargetsCustoms, ref DestroyLookup);
+                    DestroyResolver.EnableDestroy(action.Target, entity, targets, ref DestroyLookup);
                 }
             }
         }
@@ -82,10 +78,9 @@ namespace BovineLabs.Reaction.Actions
             Target requested,
             Entity self,
             in Targets targets,
-            in ComponentLookup<TargetsCustom> targetsCustoms,
             ref ComponentLookup<DestroyEntity> destroyLookup)
         {
-            var target = targets.Get(requested, self, targetsCustoms);
+            var target = targets.Get(requested, self);
             if (target == Entity.Null) return;
             if (!destroyLookup.HasComponent(target)) return;
             destroyLookup.SetComponentEnabled(target, true);

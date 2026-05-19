@@ -22,8 +22,7 @@ namespace BovineLabs.Reaction.Actions
             new DeactivatedJob
             {
                 CommandBuffer = commandBufferSystem.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter(),
-                ObjectDefinitions = SystemAPI.GetSingleton<ObjectDefinitionRegistry>(),
-                TargetsCustoms = SystemAPI.GetComponentLookup<TargetsCustom>()
+                ObjectDefinitions = SystemAPI.GetSingleton<ObjectDefinitionRegistry>()
             }.ScheduleParallel();
         }
 
@@ -34,7 +33,6 @@ namespace BovineLabs.Reaction.Actions
         {
             public EntityCommandBuffer.ParallelWriter CommandBuffer;
             [ReadOnly] public ObjectDefinitionRegistry ObjectDefinitions;
-            [ReadOnly] public ComponentLookup<TargetsCustom> TargetsCustoms;
 
             private void Execute([ChunkIndexInQuery] int chunkIndex, Entity entity, in DynamicBuffer<ActionCreateOnDeactivate> actions, in Targets targets)
             {
@@ -44,7 +42,7 @@ namespace BovineLabs.Reaction.Actions
                     var prefab = this.ObjectDefinitions[create.Id];
                     var createdEntity = this.CommandBuffer.Instantiate(chunkIndex, prefab);
 
-                    var target = targets.Get(create.Target, entity, TargetsCustoms);
+                    var target = targets.Get(create.Target, entity);
                     var instTargets = targets.Copy(entity, target);
 
                     this.CommandBuffer.SetComponent(chunkIndex, createdEntity, instTargets);
