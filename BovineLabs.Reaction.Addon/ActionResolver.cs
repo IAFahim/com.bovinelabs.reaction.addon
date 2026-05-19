@@ -1,20 +1,18 @@
 // BovineLabs.Reaction.Addon/ActionResolver.cs
 
 using BovineLabs.Core.LifeCycle;
+using BovineLabs.Reaction.Data.Core;
+using Unity.Entities;
 
 namespace BovineLabs.Reaction.Actions
 {
-    using BovineLabs.Reaction.Data.Core;
-    using Unity.Collections;
-    using Unity.Entities;
-
     /// <summary>
-    /// Helper for resolving action targets and applying effects.
+    ///     Helper for resolving action targets and applying effects.
     /// </summary>
     internal static class ActionResolver
     {
         /// <summary>
-        /// Enables the DestroyEntity component on the resolved target.
+        ///     Enables the DestroyEntity component on the resolved target.
         /// </summary>
         public static void EnableDestroy(
             Target requested,

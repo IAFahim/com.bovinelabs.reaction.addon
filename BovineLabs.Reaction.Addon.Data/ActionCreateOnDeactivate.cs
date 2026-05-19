@@ -1,12 +1,13 @@
 // BovineLabs.Reaction.Data/Actions/ActionCreateOnDeactivate.cs
+
+using BovineLabs.Core.ObjectManagement;
+using BovineLabs.Reaction.Data.Core;
+using Unity.Entities;
+
 namespace BovineLabs.Reaction.Data.Actions
 {
-    using BovineLabs.Core.ObjectManagement;
-    using BovineLabs.Reaction.Data.Core;
-    using Unity.Entities;
-
     /// <summary>
-    /// Spawns an object from the object registry when the action deactivates.
+    ///     Spawns an object from the object registry when the action deactivates.
     /// </summary>
     [InternalBufferCapacity(1)]
     public struct ActionCreateOnDeactivate : IBufferElementData

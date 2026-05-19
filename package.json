@@ -1,19 +1,19 @@
 {
-	"name": "com.bovinelabs.reaction.addon",
-	"displayName": "BovineLabs Reaction Addon",
-	"version": "0.1.0",
-	"unity": "6000.6",
-	"unityRelease": "0a5",
-	"description": "Extends BovineLabs Reaction with lifecycle management actions.",
-	"dependencies": {
-		"com.unity.test-framework": "1.6.0"
-	},
-	"author": {
-		"name": "BovineLabs",
-		"url": "https://bovinelabs.com"
-	},
-	"changelogUrl": "https://github.com/BovineLabs/BovineLabs-Reaction",
-	"documentationUrl": "https://github.com/BovineLabs/BovineLabs-Reaction",
-	"licensesUrl": "https://github.com/BovineLabs/BovineLabs-Reaction/blob/main/LICENSE.md",
-	"hideInEditor": false
+  "name": "com.bovinelabs.reaction.addon",
+  "displayName": "BovineLabs Reaction Addon",
+  "version": "0.1.0",
+  "unity": "6000.6",
+  "unityRelease": "0a5",
+  "description": "Extends BovineLabs Reaction with lifecycle management actions.",
+  "dependencies": {
+    "com.unity.test-framework": "1.6.0"
+  },
+  "author": {
+    "name": "BovineLabs",
+    "url": "https://bovinelabs.com"
+  },
+  "changelogUrl": "https://github.com/BovineLabs/BovineLabs-Reaction",
+  "documentationUrl": "https://github.com/BovineLabs/BovineLabs-Reaction",
+  "licensesUrl": "https://github.com/BovineLabs/BovineLabs-Reaction/blob/main/LICENSE.md",
+  "hideInEditor": false
 }

@@ -1,16 +1,17 @@
 // BovineLabs.Reaction.Authoring/Actions/ActionCreateOnActivateAuthoring.cs
+
+using System;
+using BovineLabs.Core.Authoring.ObjectManagement;
+using BovineLabs.Reaction.Authoring.Core;
+using BovineLabs.Reaction.Data.Actions;
+using BovineLabs.Reaction.Data.Core;
+using Unity.Entities;
+using UnityEngine;
+
 namespace BovineLabs.Reaction.Authoring.Actions
 {
-    using System;
-    using BovineLabs.Core.Authoring.ObjectManagement;
-    using BovineLabs.Reaction.Authoring.Core;
-    using BovineLabs.Reaction.Data.Actions;
-    using BovineLabs.Reaction.Data.Core;
-    using Unity.Entities;
-    using UnityEngine;
-
     /// <summary>
-    /// Spawns an object when the action activates.
+    ///     Spawns an object when the action activates.
     /// </summary>
     [ReactionAuthoring]
     [DisallowMultipleComponent]
@@ -31,18 +32,16 @@ namespace BovineLabs.Reaction.Authoring.Actions
         {
             public override void Bake(ActionCreateOnActivateAuthoring authoring)
             {
-                var entity = this.GetEntity(TransformUsageFlags.None);
-                var buffer = this.AddBuffer<ActionCreateOnActivate>(entity);
+                var entity = GetEntity(TransformUsageFlags.None);
+                var buffer = AddBuffer<ActionCreateOnActivate>(entity);
 
                 foreach (var spawn in authoring.Spawns)
                 {
                     if (spawn.Definition == null)
-                    {
                         throw new InvalidOperationException(
                             $"[{nameof(ActionCreateOnActivateAuthoring)}] {authoring.name}: ObjectDefinition is null.");
-                    }
 
-                    this.DependsOn(spawn.Definition);
+                    DependsOn(spawn.Definition);
                     buffer.Add(new ActionCreateOnActivate { Id = spawn.Definition, Target = spawn.Target });
                 }
             }
