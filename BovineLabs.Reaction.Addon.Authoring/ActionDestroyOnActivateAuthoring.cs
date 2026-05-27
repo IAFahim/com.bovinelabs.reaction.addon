@@ -20,8 +20,7 @@ namespace BovineLabs.Reaction.Addon.Authoring
             public override void Bake(ActionDestroyOnActivateAuthoring authoring)
             {
                 var entity = GetEntity(TransformUsageFlags.None);
-                var buffer = AddBuffer<ActionDestroyOnActivate>(entity);
-                buffer.Add(new ActionDestroyOnActivate { Target = authoring.Target });
+                AddComponent(entity, new ActionDestroyOnActivate { Target = authoring.Target });
             }
         }
     }

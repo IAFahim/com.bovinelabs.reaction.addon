@@ -3,8 +3,7 @@ using Unity.Entities;
 
 namespace BovineLabs.Reaction.Addon.Data
 {
-    [InternalBufferCapacity(0)]
-    public struct ActionDestroyOnChanceFail : IBufferElementData
+    public struct ActionDestroyOnChanceFail : IComponentData
     {
         public Target Target;
     }

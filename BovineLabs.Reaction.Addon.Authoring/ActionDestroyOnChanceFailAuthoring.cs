@@ -10,17 +10,20 @@ namespace BovineLabs.Reaction.Addon.Authoring
     [ReactionAuthoring]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(ReactionAuthoring))]
-    public class ActionDestroyOnDeactivateAuthoring : MonoBehaviour
+    public class ActionDestroyOnChanceFailAuthoring : MonoBehaviour
     {
         [Tooltip("Set to Self to destroy the Reaction entity itself.")]
         public Target Target = Target.Self;
 
-        private class Baker : Baker<ActionDestroyOnDeactivateAuthoring>
+        private class Baker : Baker<ActionDestroyOnChanceFailAuthoring>
         {
-            public override void Bake(ActionDestroyOnDeactivateAuthoring authoring)
+            public override void Bake(ActionDestroyOnChanceFailAuthoring authoring)
             {
                 var entity = GetEntity(TransformUsageFlags.None);
-                AddComponent(entity, new ActionDestroyOnDeactivate { Target = authoring.Target });
+                AddComponent<ActionDestroyOnChanceFail>(entity, new ActionDestroyOnChanceFail()
+                {
+                    Target = authoring.Target
+                });
             }
         }
     }

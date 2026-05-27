@@ -4,7 +4,7 @@ using Unity.Entities;
 namespace BovineLabs.Reaction.Addon.Data
 {
     [InternalBufferCapacity(0)]
-    public struct ActionDestroyOnActivate : IBufferElementData
+    public struct ActionDestroyOnActivate : IComponentData
     {
         public Target Target;
     }

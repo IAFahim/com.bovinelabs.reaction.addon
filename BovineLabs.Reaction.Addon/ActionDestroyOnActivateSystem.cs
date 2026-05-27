@@ -9,9 +9,6 @@ using Unity.Entities;
 
 namespace BovineLabs.Reaction.Addon
 {
-    /// <summary>
-    ///     Processes destroy actions when an action activates.
-    /// </summary>
     [UpdateInGroup(typeof(ActiveEnabledSystemGroup))]
     [WorldSystemFilter(WorldSystemFilterFlags.LocalSimulation | WorldSystemFilterFlags.ClientSimulation |
                        WorldSystemFilterFlags.ServerSimulation)]
@@ -33,10 +30,9 @@ namespace BovineLabs.Reaction.Addon
         {
             [NativeDisableParallelForRestriction] public ComponentLookup<DestroyEntity> DestroyLookup;
 
-            private void Execute(Entity entity, in DynamicBuffer<ActionDestroyOnActivate> actions, in Targets targets)
+            private void Execute(Entity entity, in ActionDestroyOnActivate actions, in Targets targets)
             {
-                for (var i = 0; i < actions.Length; i++)
-                    ActionResolver.EnableDestroy(actions[i].Target, entity, targets, ref DestroyLookup);
+                    ActionResolver.EnableDestroy(actions.Target, entity, targets, ref DestroyLookup);
             }
         }
     }

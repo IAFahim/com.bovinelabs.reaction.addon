@@ -35,13 +35,11 @@ namespace BovineLabs.Reaction.Addon
             [NativeDisableParallelForRestriction] public ComponentLookup<DestroyEntity> DestroyLookup;
 
             private void Execute(Entity entity, in ConditionActive conditionActive,
-                in DynamicBuffer<ActionDestroyOnChanceFail> actions, in Targets targets)
+                in ActionDestroyOnChanceFail actions, in Targets targets)
             {
-                if (!conditionActive.Value.AllTrue)
-                    return;
+                if (!conditionActive.Value.AllTrue) return;
 
-                for (var i = 0; i < actions.Length; i++)
-                    ActionResolver.EnableDestroy(actions[i].Target, entity, targets, ref DestroyLookup);
+                ActionResolver.EnableDestroy(actions.Target, entity, targets, ref DestroyLookup);
             }
         }
     }
