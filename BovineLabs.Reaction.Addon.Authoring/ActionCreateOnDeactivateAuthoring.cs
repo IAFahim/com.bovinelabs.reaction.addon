@@ -38,8 +38,10 @@ namespace BovineLabs.Reaction.Authoring.Actions
                 foreach (var spawn in authoring.Spawns)
                 {
                     if (spawn.Definition == null)
-                        throw new InvalidOperationException(
-                            $"[{nameof(ActionCreateOnDeactivateAuthoring)}] {authoring.name}: ObjectDefinition is null.");
+                    {
+                        UnityEngine.Debug.LogError($"[{nameof(ActionCreateOnDeactivateAuthoring)}] {authoring.name}: ObjectDefinition is null.", authoring);
+                        continue;
+                    }
 
                     DependsOn(spawn.Definition);
                     buffer.Add(new ActionCreateOnDeactivate { Id = spawn.Definition, Target = spawn.Target });

@@ -15,6 +15,7 @@ namespace BovineLabs.Reaction.Actions
     ///     Processes destroy actions when an action activates.
     /// </summary>
     [UpdateInGroup(typeof(ActiveEnabledSystemGroup))]
+    [Unity.Entities.WorldSystemFilter(Unity.Entities.WorldSystemFilterFlags.LocalSimulation | Unity.Entities.WorldSystemFilterFlags.ClientSimulation | Unity.Entities.WorldSystemFilterFlags.ServerSimulation)]
     public partial struct ActionDestroyOnActivateSystem : ISystem
     {
         [BurstCompile]

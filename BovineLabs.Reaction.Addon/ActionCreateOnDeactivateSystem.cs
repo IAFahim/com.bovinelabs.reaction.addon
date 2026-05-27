@@ -13,6 +13,7 @@ using Unity.Entities;
 namespace BovineLabs.Reaction.Actions
 {
     [UpdateInGroup(typeof(ActiveDisabledSystemGroup))]
+    [Unity.Entities.WorldSystemFilter(Unity.Entities.WorldSystemFilterFlags.LocalSimulation | Unity.Entities.WorldSystemFilterFlags.ClientSimulation | Unity.Entities.WorldSystemFilterFlags.ServerSimulation)]
     public partial struct ActionCreateOnDeactivateSystem : ISystem
     {
         [BurstCompile]
