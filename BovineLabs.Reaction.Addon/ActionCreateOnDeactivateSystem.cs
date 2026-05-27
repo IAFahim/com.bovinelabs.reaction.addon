@@ -1,4 +1,5 @@
 using BovineLabs.Core;
+using BovineLabs.Core.LifeCycle;
 using BovineLabs.Core.ObjectManagement;
 using BovineLabs.Reaction.Addon.Data;
 using BovineLabs.Reaction.Data.Active;
@@ -11,9 +12,9 @@ using Unity.Entities;
 namespace BovineLabs.Reaction.Addon
 {
     [UpdateInGroup(typeof(ActiveDisabledSystemGroup))]
+    [UpdateBefore(typeof(ActionDestroyOnDeactivateSystem))]
     [WorldSystemFilter(WorldSystemFilterFlags.LocalSimulation | WorldSystemFilterFlags.ClientSimulation |
                        WorldSystemFilterFlags.ServerSimulation)]
-    [UpdateAfter(typeof(ActionDestroyOnDeactivateSystem))]
     public partial struct ActionCreateOnDeactivateSystem : ISystem
     {
         [BurstCompile]
@@ -31,9 +32,10 @@ namespace BovineLabs.Reaction.Addon
         [BurstCompile]
         [WithAll(typeof(ActivePrevious))]
         [WithDisabled(typeof(Active))]
+        [WithDisabled(typeof(DestroyEntity))]
         private partial struct DeactivateJob : IJobEntity
         {
-            [NativeDisableParallelForRestriction] public EntityCommandBuffer.ParallelWriter CommandBuffer;
+            public EntityCommandBuffer.ParallelWriter CommandBuffer;
             [ReadOnly] public ObjectDefinitionRegistry ObjectDefinitions;
 
             private void Execute([ChunkIndexInQuery] int chunkIndex, Entity entity,
