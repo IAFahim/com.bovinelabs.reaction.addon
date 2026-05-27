@@ -30,6 +30,7 @@ namespace BovineLabs.Reaction.Addon
         [BurstCompile]
         [WithAll(typeof(ActivePrevious))]
         [WithDisabled(typeof(Active))]
+        [WithDisabled(typeof(DestroyEntity))] 
         private partial struct DestroyJob : IJobEntity
         {
             [NativeDisableParallelForRestriction] public EntityCommandBuffer.ParallelWriter CommandBuffer;

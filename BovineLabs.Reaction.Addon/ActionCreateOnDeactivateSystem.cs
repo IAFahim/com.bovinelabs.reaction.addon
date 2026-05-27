@@ -13,6 +13,7 @@ namespace BovineLabs.Reaction.Addon
     [UpdateInGroup(typeof(ActiveDisabledSystemGroup))]
     [WorldSystemFilter(WorldSystemFilterFlags.LocalSimulation | WorldSystemFilterFlags.ClientSimulation |
                        WorldSystemFilterFlags.ServerSimulation)]
+    [UpdateAfter(typeof(ActionDestroyOnDeactivateSystem))]
     public partial struct ActionCreateOnDeactivateSystem : ISystem
     {
         [BurstCompile]
@@ -50,8 +51,6 @@ namespace BovineLabs.Reaction.Addon
                     var createdEntity = CommandBuffer.Instantiate(chunkIndex, prefab);
                     CommandBuffer.SetComponent(chunkIndex, createdEntity, instTargets);
                 }
-
-                CommandBuffer.SetComponentEnabled<ActivePrevious>(chunkIndex, entity, false);
             }
         }
     }
