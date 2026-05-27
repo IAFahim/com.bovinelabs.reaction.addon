@@ -32,7 +32,7 @@ namespace BovineLabs.Reaction.Addon
         [WithDisabled(typeof(Active))]
         private partial struct DeactivateJob : IJobEntity
         {
-            public EntityCommandBuffer.ParallelWriter CommandBuffer;
+            [NativeDisableParallelForRestriction] public EntityCommandBuffer.ParallelWriter CommandBuffer;
             [ReadOnly] public ObjectDefinitionRegistry ObjectDefinitions;
 
             private void Execute([ChunkIndexInQuery] int chunkIndex, Entity entity,
