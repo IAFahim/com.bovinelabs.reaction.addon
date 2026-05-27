@@ -1,5 +1,3 @@
-// BovineLabs.Reaction.Addon/ActionDestroyOnActivateSystem.cs
-
 using BovineLabs.Core.LifeCycle;
 using BovineLabs.Reaction.Addon.Data;
 using BovineLabs.Reaction.Data.Active;
@@ -9,13 +7,14 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 
-namespace BovineLabs.Reaction.Actions
+namespace BovineLabs.Reaction.Addon
 {
     /// <summary>
     ///     Processes destroy actions when an action activates.
     /// </summary>
     [UpdateInGroup(typeof(ActiveEnabledSystemGroup))]
-    [Unity.Entities.WorldSystemFilter(Unity.Entities.WorldSystemFilterFlags.LocalSimulation | Unity.Entities.WorldSystemFilterFlags.ClientSimulation | Unity.Entities.WorldSystemFilterFlags.ServerSimulation)]
+    [WorldSystemFilter(WorldSystemFilterFlags.LocalSimulation | WorldSystemFilterFlags.ClientSimulation |
+                       WorldSystemFilterFlags.ServerSimulation)]
     public partial struct ActionDestroyOnActivateSystem : ISystem
     {
         [BurstCompile]

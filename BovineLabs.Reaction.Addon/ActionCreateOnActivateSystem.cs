@@ -1,8 +1,6 @@
-// BovineLabs.Reaction.Addon/ActionCreateOnActivateSystem.cs
-
 using BovineLabs.Core;
 using BovineLabs.Core.ObjectManagement;
-using BovineLabs.Reaction.Data.Actions;
+using BovineLabs.Reaction.Addon.Data;
 using BovineLabs.Reaction.Data.Active;
 using BovineLabs.Reaction.Data.Core;
 using BovineLabs.Reaction.Groups;
@@ -10,10 +8,11 @@ using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 
-namespace BovineLabs.Reaction.Actions
+namespace BovineLabs.Reaction.Addon
 {
     [UpdateInGroup(typeof(ActiveEnabledSystemGroup))]
-    [Unity.Entities.WorldSystemFilter(Unity.Entities.WorldSystemFilterFlags.LocalSimulation | Unity.Entities.WorldSystemFilterFlags.ClientSimulation | Unity.Entities.WorldSystemFilterFlags.ServerSimulation)]
+    [WorldSystemFilter(WorldSystemFilterFlags.LocalSimulation | WorldSystemFilterFlags.ClientSimulation |
+                       WorldSystemFilterFlags.ServerSimulation)]
     public partial struct ActionCreateOnActivateSystem : ISystem
     {
         [BurstCompile]

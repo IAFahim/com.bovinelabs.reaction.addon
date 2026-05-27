@@ -1,18 +1,14 @@
-// BovineLabs.Reaction.Authoring/Actions/ActionCreateOnActivateAuthoring.cs
-
 using System;
 using BovineLabs.Core.Authoring.ObjectManagement;
+using BovineLabs.Reaction.Addon.Data;
+using BovineLabs.Reaction.Authoring;
 using BovineLabs.Reaction.Authoring.Core;
-using BovineLabs.Reaction.Data.Actions;
 using BovineLabs.Reaction.Data.Core;
 using Unity.Entities;
 using UnityEngine;
 
-namespace BovineLabs.Reaction.Authoring.Actions
+namespace BovineLabs.Reaction.Addon.Authoring
 {
-    /// <summary>
-    ///     Spawns an object when the action activates.
-    /// </summary>
     [ReactionAuthoring]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(ReactionAuthoring))]

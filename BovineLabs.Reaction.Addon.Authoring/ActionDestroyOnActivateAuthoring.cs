@@ -1,5 +1,3 @@
-// BovineLabs.Reaction.Addon.Authoring/ActionDestroyOnActivateAuthoring.cs
-
 using BovineLabs.Reaction.Addon.Data;
 using BovineLabs.Reaction.Authoring;
 using BovineLabs.Reaction.Authoring.Core;
@@ -9,9 +7,6 @@ using UnityEngine;
 
 namespace BovineLabs.Reaction.Addon.Authoring
 {
-    /// <summary>
-    ///     Destroys the target entity when the action activates.
-    /// </summary>
     [ReactionAuthoring]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(ReactionAuthoring))]

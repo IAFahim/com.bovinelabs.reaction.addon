@@ -1,18 +1,14 @@
-// BovineLabs.Reaction.Authoring/Actions/ActionCreateOnDeactivateAuthoring.cs
-
 using System;
 using BovineLabs.Core.Authoring.ObjectManagement;
+using BovineLabs.Reaction.Addon.Data;
+using BovineLabs.Reaction.Authoring;
 using BovineLabs.Reaction.Authoring.Core;
-using BovineLabs.Reaction.Data.Actions;
 using BovineLabs.Reaction.Data.Core;
 using Unity.Entities;
 using UnityEngine;
 
-namespace BovineLabs.Reaction.Authoring.Actions
+namespace BovineLabs.Reaction.Addon.Authoring
 {
-    /// <summary>
-    ///     Spawns an object when the action deactivates.
-    /// </summary>
     [ReactionAuthoring]
     [DisallowMultipleComponent]
     [RequireComponent(typeof(ReactionAuthoring))]
@@ -39,7 +35,9 @@ namespace BovineLabs.Reaction.Authoring.Actions
                 {
                     if (spawn.Definition == null)
                     {
-                        UnityEngine.Debug.LogError($"[{nameof(ActionCreateOnDeactivateAuthoring)}] {authoring.name}: ObjectDefinition is null.", authoring);
+                        Debug.LogError(
+                            $"[{nameof(ActionCreateOnDeactivateAuthoring)}] {authoring.name}: ObjectDefinition is null.",
+                            authoring);
                         continue;
                     }
 

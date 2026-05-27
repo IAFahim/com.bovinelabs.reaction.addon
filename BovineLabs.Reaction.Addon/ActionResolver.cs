@@ -1,10 +1,8 @@
-// BovineLabs.Reaction.Addon/ActionResolver.cs
-
 using BovineLabs.Core.LifeCycle;
 using BovineLabs.Reaction.Data.Core;
 using Unity.Entities;
 
-namespace BovineLabs.Reaction.Actions
+namespace BovineLabs.Reaction.Addon
 {
     /// <summary>
     ///     Helper for resolving action targets and applying effects.
