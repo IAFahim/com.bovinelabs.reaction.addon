@@ -18,6 +18,12 @@ namespace BovineLabs.Reaction.Addon
     public partial struct ActionCreateOnDeactivateSystem : ISystem
     {
         [BurstCompile]
+        public void OnCreate(ref SystemState state)
+        {
+            state.RequireForUpdate<InstantiateCommandBufferSystem.Singleton>();
+        }
+
+        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var commandBufferSystem = SystemAPI.GetSingleton<InstantiateCommandBufferSystem.Singleton>();

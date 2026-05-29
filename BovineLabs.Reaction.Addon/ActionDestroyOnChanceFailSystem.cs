@@ -16,12 +16,20 @@ namespace BovineLabs.Reaction.Addon
     public partial struct ActionDestroyOnChanceFailSystem : ISystem
     {
         [BurstCompile]
+        public void OnCreate(ref SystemState state)
+        {
+            state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
+        }
+
+        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
+            var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
             new DestroyJob
             {
-                DestroyLookup = SystemAPI.GetComponentLookup<DestroyEntity>()
-            }.Schedule();
+                Ecb = ecb.AsParallelWriter(),
+                
+            }.ScheduleParallel();
         }
 
         [BurstCompile]
@@ -32,14 +40,14 @@ namespace BovineLabs.Reaction.Addon
         [WithDisabled(typeof(DestroyEntity))]
         private partial struct DestroyJob : IJobEntity
         {
-            [NativeDisableParallelForRestriction] public ComponentLookup<DestroyEntity> DestroyLookup;
+            public EntityCommandBuffer.ParallelWriter Ecb;
 
-            private void Execute(Entity entity, in ConditionActive conditionActive,
+            private void Execute([ChunkIndexInQuery] int chunkIndex, Entity entity, in ConditionActive conditionActive,
                 in ActionDestroyOnChanceFail actions, in Targets targets)
             {
                 if (!conditionActive.Value.AllTrue) return;
 
-                ActionResolver.EnableDestroy(actions.Target, entity, targets, ref DestroyLookup);
+                ActionResolver.EnableDestroy(chunkIndex, actions.Target, entity, targets, ref Ecb);
             }
         }
     }

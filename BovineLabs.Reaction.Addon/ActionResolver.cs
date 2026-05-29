@@ -13,15 +13,15 @@ namespace BovineLabs.Reaction.Addon
         ///     Enables the DestroyEntity component on the resolved target.
         /// </summary>
         public static void EnableDestroy(
+            int sortKey,
             Target requested,
             Entity self,
             in Targets targets,
-            ref ComponentLookup<DestroyEntity> destroyLookup)
+            ref EntityCommandBuffer.ParallelWriter ecb)
         {
             var target = targets.Get(requested, self);
             if (target == Entity.Null) return;
-            if (!destroyLookup.HasComponent(target)) return;
-            destroyLookup.SetComponentEnabled(target, true);
+            ecb.SetComponentEnabled<DestroyEntity>(sortKey, target, true);
         }
     }
 }
